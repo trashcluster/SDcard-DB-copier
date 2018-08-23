@@ -1,0 +1,12 @@
+SD card databases updater
+
+1 - Generate and download the latest database from stripesapp
+2 - unzip the file
+3 - Crzate a folder named 'MatchDatabases' and put the database in it
+4 - launch omsdb.exe
+5 - select the MatchDatabases folder on your pc
+6 - Select a working mode (Database updater : wipe the sdcard and put the new database on it	Cleaner : erase the 2 temporary .sqlite files from the sdcard but keep the current database)
+7 - Plug the sdcard and wait for "Done ! You can safely remove the sdcard" to appear on the screen
+8 - unplug the sdcard
+9 - repeat from 7
+10 - enjoy
