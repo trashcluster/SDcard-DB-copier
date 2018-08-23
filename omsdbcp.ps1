@@ -1,7 +1,7 @@
 ﻿#Volume Detection 
 Register-WmiEvent -Class win32_VolumeChangeEvent -SourceIdentifier volumeChange
 
-#Graphical interface for folder selection
+#Graphical interface for folder selection function
 Function Select-FolderDialog
 {
     param([string]$Description="Select Folder",[string]$RootFolder="Desktop")
@@ -25,7 +25,20 @@ Function Select-FolderDialog
 
 #Select Folder graphically
 write-host "Select the MatchDatabase folder with the .sqlite file in it" -ForegroundColor Cyan
-$folder = Select-FolderDialog
+
+$folderc = 'False'
+while ($folderc -eq 'False')
+    {
+    $folder = Select-FolderDialog
+    $foldmatch = echo $folder | Select-String 'MatchDatabases' -Quiet
+    write-host "Error ! Retry selecting MatchDatabases folder" -ForegroundColor Red
+        if ($foldmatch -eq 'MatchDatabases')
+        {
+        $folderc = 'True'
+        }
+    }
+
+
 
 write-host "Selected " $folder
 
