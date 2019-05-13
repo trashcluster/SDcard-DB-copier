@@ -7,7 +7,7 @@ Function Select-FolderDialog
     param([string]$Description="Select Folder",[string]$RootFolder="Desktop")
 
  [System.Reflection.Assembly]::LoadWithPartialName("System.windows.forms") |
-     Out-Null     
+     Out-Null
 
    $objForm = New-Object System.Windows.Forms.FolderBrowserDialog
         $objForm.Rootfolder = $RootFolder
@@ -49,7 +49,7 @@ $menu = 0
 while ($menu -eq 0)
 	{
 	$mode = Read-Host "1 - Update Databases `n2 - Clean Temp files `nSelect mode "
-    if ($mode -eq 1 -or $mode -eq 2) 
+    if ($mode -eq 1 -or $mode -eq 2)
         {
             $menu = 1
         }
