@@ -1,6 +1,10 @@
 ﻿#Shenanigan needed for the script to work, idk what it does but it makes the script detect peripherals
 Register-WmiEvent -Class win32_VolumeChangeEvent -SourceIdentifier volumeChange
 
+#Gives the script execution path
+$scriptPath = split-path -parent $MyInvocation.MyCommand.Definition
+#Debug
+write-host("$scriptPath")
 ############################################"Functions Definition"######################################
 #Graphical interface for folder selection function, Copied from StackOverflow.
 Function Select-FolderDialog
@@ -77,17 +81,29 @@ Function CleanTempFiles2
 #Select Folder graphically
 write-host "Select the MatchDatabase folder with the .sqlite file in it" -ForegroundColor Cyan
 
+#$folderc : folder check : check if folder selected matches MatchDatabases, if not it'll prompt a folder selection screen
+#PWDMDb : PWD MatchDatabases : Check to see if a MatchDatabases folder is detected at the script execution directory,
+#if yes it shouldn't prompt for the folder selection screen.
 $folderc = 'False'
-while ($folderc -eq 'False')
-    {
-    $folder = Select-FolderDialog
-    $foldmatch = echo $folder | Select-String 'MatchDatabases' -Quiet
-    write-host "Error ! Retry selecting MatchDatabases folder" -ForegroundColor Red
-        if ($foldmatch -eq 'MatchDatabases')
+$PWDMDb = Get-ChildItem $scriptPath -filter MatchDatabases
+if ($PWDMDb -match "MatchDatabases")
+{
+    $folder = $(PWDMDb)\MatchDatabases\
+    write-host($folder)
+}
+else
+{
+    while ($folderc -eq 'False')
         {
-        $folderc = 'True'
+        $folder = Select-FolderDialog
+        $foldmatch = echo $folder | Select-String 'MatchDatabases' -Quiet
+        write-host "Error ! Retry selecting MatchDatabases folder" -ForegroundColor Red
+            if ($foldmatch -eq 'MatchDatabases')
+            {
+            $folderc = 'True'
+            }
         }
-    }
+}
 
 
 #Return selected folder
